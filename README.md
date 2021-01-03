@@ -1,4 +1,7 @@
 # hex
+
+[![GoDoc](https://godoc.org/github.com/VKoptev/hex?status.svg)](https://godoc.org/github.com/VKoptev/hex)
+
 Realization of hexagonal grids
 
 This library is representation of hexagonal grids that describe in [article from Red Blob Games]
