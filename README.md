@@ -1,6 +1,6 @@
 # hex
 
-[![GoDoc](https://godoc.org/github.com/VKoptev/hex?status.svg)](https://godoc.org/github.com/VKoptev/hex)
+[![GoDoc](https://pkg.go.dev/badge/github.com/VKoptev/hex)](https://pkg.go.dev/github.com/VKoptev/hex)
 
 Realization of hexagonal grids
 
