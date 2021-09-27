@@ -1,0 +1,43 @@
+excludes:
+  - vendor
+
+protoc:
+  version: 3.7.0
+  allow_unused_imports: false
+
+lint:
+  group: google
+  rules:
+    remove:
+      - MESSAGES_HAVE_COMMENTS
+      - REQUEST_RESPONSE_NAMES_MATCH_RPC
+      - REQUEST_RESPONSE_TYPES_UNIQUE
+      - SERVICE_NAMES_NO_PLURALS
+      - SERVICES_HAVE_COMMENTS
+    add:
+      - SYNTAX_PROTO3
+      - MESSAGE_FIELD_NAMES_LOWER_SNAKE_CASE
+      - COMMENTS_NO_C_STYLE
+      - FILE_NAMES_LOWER_SNAKE_CASE
+      - PACKAGE_IS_DECLARED
+      - PACKAGE_LOWER_CASE
+      - PACKAGES_SAME_IN_DIR
+      - REQUEST_RESPONSE_TYPES_AFTER_SERVICE
+
+generate:
+  go_options:
+    import_path: github.com/VKoptev/hex
+  plugins:
+    - name: go
+      type: go
+      flags: paths=source_relative
+      output: .
+
+    - name: go-grpc
+      type: go
+      flags: paths=source_relative
+      output: .
+
+    - name: validate
+      flags: lang=go,paths=source_relative
+      output: .

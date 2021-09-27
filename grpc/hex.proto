@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package hex;
+
+option go_package = "github.com/VKoptev/hex/grpc";
+
+message Hex {
+  int64 q = 1;
+  int64 r = 2;
+};

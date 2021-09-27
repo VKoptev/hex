@@ -107,7 +107,7 @@ func TestHex_Line(t *testing.T) {
 	t.Parallel()
 	tt := []struct {
 		h, t Hex
-		s    LingSign
+		s    LineSign
 		e    []Hex
 	}{
 		{
@@ -189,7 +189,7 @@ func TestHex_Direction(t *testing.T) {
 
 	t.Run("plus-minus", func(t *testing.T) {
 		t.Parallel()
-		ss := []LingSign{LSPlus, LSMinus}
+		ss := []LineSign{LSPlus, LSMinus}
 		hh := make([]Hex, RingLenAtDistance(2))
 		ZE.RingAtDistance(2, hh)
 

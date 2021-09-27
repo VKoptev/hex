@@ -10,28 +10,28 @@ const (
 	DirectionCount = 6
 )
 
-// LingSign is alias for float64 to determine it from other real values.
-type LingSign float64
+// LineSign is alias for float64 to determine it from other real values.
+type LineSign float64
 
 // Line signs.
 // LSPlus means counterclockwise path with ray connecting start hex with end one being traced on edge.
 // LSMinus means clockwise path with ray connecting start hex with end one being traced on edge.
 // LSZero means that there are no such ray or unknown direction.
 const (
-	LSPlus  LingSign = 1
-	LSMinus LingSign = -1
-	LSZero  LingSign = 0
+	LSPlus  LineSign = 1
+	LSMinus LineSign = -1
+	LSZero  LineSign = 0
 )
 
 // String implements fmt.Stringer interface.
-func (ls LingSign) String() string {
+func (ls LineSign) String() string {
 	switch ls {
 	case LSPlus:
-		return "plus"
+		return "line sign plus"
 	case LSMinus:
-		return "minus"
+		return "line sign minus"
 	case LSZero:
-		return "zero"
+		return "line sign zero"
 	}
 
 	return fmt.Sprintf("%f", ls)
@@ -101,6 +101,7 @@ func (h Hex) Mul(k int) Hex {
 
 // Len returns radius-vector of Hex.
 func (h Hex) Len() int {
+	// nolint:gomnd
 	return (absInt(h.q) + absInt(h.r) + absInt(h.s)) / 2
 }
 
@@ -115,7 +116,7 @@ func (h Hex) Neighbor(d int) Hex {
 }
 
 // Direction returns index of direction.
-func (h Hex) Direction(t Hex, sign LingSign) int {
+func (h Hex) Direction(t Hex, sign LineSign) int {
 	l := h.Line(t, sign)
 
 	if len(l) <= 1 {
@@ -161,7 +162,7 @@ func (h Hex) NeighborsAtDistance(d int, res []Hex) {
 }
 
 // Line returns Hexes from h to t.
-func (h Hex) Line(t Hex, sign LingSign) (res []Hex) {
+func (h Hex) Line(t Hex, sign LineSign) (res []Hex) {
 	n := h.Distance(t)
 	step := 1 / float64(maxInt(n, 1))
 
@@ -240,6 +241,7 @@ func PrettyDirection(d int) string {
 
 // RingLenAtDistance returns length of ring at specified distance.
 func RingLenAtDistance(r int) int {
+	// nolint:gomnd
 	return 6 * r
 }
 

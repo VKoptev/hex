@@ -1,8 +1,15 @@
-package hex
+package json
 
 import (
 	"encoding/json"
+
+	"github.com/VKoptev/hex"
 )
+
+// Hex embeds hex.Hex to implement json.Marshaler and json.Unmarshaler interfaces.
+type Hex struct {
+	hex.Hex
+}
 
 // MarshalJSON returns JSON representation of Hex.
 func (h Hex) MarshalJSON() ([]byte, error) {
@@ -18,7 +25,7 @@ func (h *Hex) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	*h = NewWithArray(a)
+	h.Hex = hex.NewWithArray(a)
 
 	return nil
 }

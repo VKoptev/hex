@@ -1,8 +1,10 @@
-package hex
+package json
 
 import (
 	"encoding/json"
 	"testing"
+
+	"github.com/VKoptev/hex"
 )
 
 type TestStruct struct {
@@ -55,7 +57,7 @@ func (t TestMapStruct) MarshalJSON() ([]byte, error) {
 
 func TestHex_MarshalJSON(t *testing.T) {
 	t.Parallel()
-	bb, err := json.Marshal(TestStruct{Hex: New(0, 10)})
+	bb, err := json.Marshal(TestStruct{Hex: Hex{hex.New(0, 10)}})
 	if err != nil {
 		t.Fatalf("error in test: %v", err)
 	}
@@ -70,16 +72,17 @@ func TestHex_UnmarshalJSON(t *testing.T) {
 	if err := json.Unmarshal([]byte(`{"hex":[0,10]}`), ts); err != nil {
 		t.Fatalf("error in test: %v", err)
 	}
-	if ts.Hex != New(0, 10) {
+	if ts.Hex.Hex != hex.New(0, 10) {
 		t.Errorf("wrong unmarshaling: %+v", ts)
 	}
 }
 
 func TestMap_MarshalJSON(t *testing.T) {
 	t.Parallel()
-	bb, err := json.Marshal(TestMapStruct{Map: map[Hex]a{
-		New(0, 10): {A: "test"},
-	}})
+
+	h := Hex{hex.New(0, 10)}
+	bb, err := json.Marshal(TestMapStruct{
+		Map: map[Hex]a{h: {A: "test"}}})
 	if err != nil {
 		t.Fatalf("error in test: %v", err)
 	}
@@ -94,7 +97,7 @@ func TestMap_UnmarshalJSON(t *testing.T) {
 	if err := json.Unmarshal([]byte(`{"map":{"[0,10]":{"a":"test"}}}`), tms); err != nil {
 		t.Fatalf("error in test: %v", err)
 	}
-	h := New(0, 10)
+	h := Hex{hex.New(0, 10)}
 	if _, ok := tms.Map[h]; !ok {
 		t.Errorf("wrong unmarshaling: %+v", tms)
 	}
