@@ -1,0 +1,25 @@
+name: Main
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: self-hosted
+
+    container:
+      image: dockerhub.jeshik.ru/library/gotools:0.0.4
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    steps:
+      - name: Check Out Repo 
+        uses: actions/checkout@v2
+
+      - name: lint
+        run: make lint
+
+      - name: test
+        run: make test
